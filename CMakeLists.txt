@@ -1,0 +1,6 @@
+cmake_minimum_required(VERSION 3.10)
+project(chess_engine)
+
+set(CMAKE_CXX_STANDARD 11)
+
+add_executable(chess_engine main.cpp src/engine/ChessEngine.cpp src/engine/ChessEngine.h src/util/MoveResult.h src/util/Point.h src/util/PromotionResult.h src/figures/FigureType.h src/util/Side.h src/util/GameStatus.h src/util/PointFactory.cpp src/util/PointFactory.h src/board/Board.cpp src/board/Board.h src/figures/Figure.cpp src/figures/Figure.h src/validators/MoveValidator.cpp src/validators/MoveValidator.h src/util/Move.h src/validators/RookMoveValidator.cpp src/validators/RookMoveValidator.h src/validators/BishopMoveValidator.cpp src/validators/BishopMoveValidator.h src/validators/KnightMoveValidator.cpp src/validators/KnightMoveValidator.h src/validators/QueenMoveValidator.cpp src/validators/QueenMoveValidator.h src/validators/KingMoveValidator.cpp src/validators/KingMoveValidator.h src/validators/PawnMoveValidator.cpp src/validators/PawnMoveValidator.h src/engine/ChessEngineFactory.cpp src/engine/ChessEngineFactory.h)
