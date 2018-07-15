@@ -6,6 +6,7 @@
 
 namespace pkchessengine {
 
+
     Point PointFactory::create(int x, int y) {
         return {x, y};
     }
@@ -19,6 +20,6 @@ namespace pkchessengine {
     }
 
     std::pair<Point, Point> PointFactory::createMove(std::string move) {
-        return std::pair<Point, Point>();
+        return std::make_pair(Point(0, 0), Point(0, 0));
     }
 }

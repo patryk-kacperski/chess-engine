@@ -10,15 +10,21 @@ namespace pkchessengine {
 
     }
 
-    std::vector<std::vector<FigureType>> Board::getState() {
-        return std::vector<std::vector<FigureType>>();
+    std::vector<std::vector<PieceInfo>> Board::getState() {
+        return std::vector<std::vector<PieceInfo>>();
     }
 
-    std::unique_ptr<Figure> Board::getFigure(Point point) {
+    std::shared_ptr<Piece> Board::getPiece(Point point) {
         return nullptr;
     }
 
-    void Board::promote(Point point, FigureType type) {
+    void Board::promote(Point point, PieceType type) {
 
+    }
+
+    Board::Board() { }
+
+    std::shared_ptr<Board> Board::create(const std::vector<std::vector<PieceInfo>>& initialState) {
+        return nullptr;
     }
 }

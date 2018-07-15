@@ -13,8 +13,18 @@ namespace pkchessengine {
 
     class ChessEngineFactory {
     public:
+        /**
+         * Creates ChessEngine containing board in default position used in chess
+         * @return ChessEngine object
+         */
         std::unique_ptr<ChessEngine> create();
-        std::unique_ptr<ChessEngine> create(std::vector<std::vector<FigureType>> initialState);
+        /**
+         * Creates ChessEngine with user defined initial board state
+         * @param initialState std::vector containing user defined piece positions
+         * @throw std::invalid_argument if initialState is not of shape 8x8
+         * @return ChessEngine object
+         */
+        std::unique_ptr<ChessEngine> create(const std::vector<std::vector<PieceInfo>>& initialState);
     private:
     };
 

@@ -5,14 +5,20 @@
 
 #include <memory>
 #include "Point.h"
-#include "../board/Board.h"
+#include "Side.h"
 
 namespace pkchessengine {
 
+    class Board; // forward declaration of Board class
+
     struct Move {
+        /// origin point of move
         Point origin;
+        /// destination point of move
         Point destination;
+        /// pointer to board on which the move should be performed
         std::shared_ptr<Board> board;
+        /// side of the moving piece
         Side side;
     };
 

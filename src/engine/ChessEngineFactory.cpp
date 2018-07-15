@@ -10,7 +10,7 @@ namespace pkchessengine {
         return nullptr;
     }
 
-    std::unique_ptr<ChessEngine> ChessEngineFactory::create(std::vector<std::vector<FigureType>> initialState) {
+    std::unique_ptr<ChessEngine> ChessEngineFactory::create(const std::vector<std::vector<PieceInfo>>& initialState) {
         return nullptr;
     }
 }

@@ -18,11 +18,11 @@ namespace pkchessengine {
         return MoveResult::kValid;
     }
 
-    MoveResult ChessEngine::attemptToMove(std::string origin, std::string destination) {
+    MoveResult ChessEngine::attemptToMove(const std::string& origin, const std::string& destination) {
         return MoveResult::kValid;
     }
 
-    MoveResult ChessEngine::attemptToMove(std::string move) {
+    MoveResult ChessEngine::attemptToMove(const std::string& move) {
         return MoveResult::kValid;
     }
 
@@ -38,40 +38,40 @@ namespace pkchessengine {
         return std::vector<Point>();
     }
 
-    std::vector<Point> ChessEngine::getPossibleMovesFor(std::string point) {
+    std::vector<Point> ChessEngine::getPossibleMovesFor(const std::string& point) {
         return std::vector<Point>();
     }
 
-    PromotionResult ChessEngine::attemptToPromote(Point point, FigureType type) {
+    PromotionResult ChessEngine::attemptToPromote(Point point, PieceType type) {
         return PromotionResult::kValid;
     }
 
-    PromotionResult ChessEngine::attemptToPromote(int x, int y, FigureType type) {
+    PromotionResult ChessEngine::attemptToPromote(int x, int y, PieceType type) {
         return PromotionResult::kValid;
     }
 
-    PromotionResult ChessEngine::attemptToPromote(std::pair<int, int> point, FigureType type) {
+    PromotionResult ChessEngine::attemptToPromote(std::pair<int, int> point, PieceType type) {
         return PromotionResult::kValid;
     }
 
-    PromotionResult ChessEngine::attemptToPromote(std::string point, FigureType type) {
+    PromotionResult ChessEngine::attemptToPromote(const std::string& point, PieceType type) {
         return PromotionResult::kValid;
-    }
-
-    Side ChessEngine::isCheck() {
-        return Side::kNone;
     }
 
     GameStatus ChessEngine::getStatus() {
-        return GameStatus::kInProgress;
+        return currentStatus;
     }
 
     Side ChessEngine::getCurrentSide() {
         return currentSide;
     }
 
-    std::vector<std::vector<FigureType>> ChessEngine::getBoard() {
+    std::vector<std::vector<PieceInfo>> ChessEngine::getBoard() {
         return board->getState();
+    }
+
+    PromotionInfo ChessEngine::shouldPromote() {
+        return PromotionInfo {false};
     }
 
 }
