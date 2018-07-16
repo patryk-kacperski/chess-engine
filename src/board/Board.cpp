@@ -27,4 +27,8 @@ namespace pkchessengine {
     std::shared_ptr<Board> Board::create(const std::vector<std::vector<PieceInfo>>& initialState) {
         return nullptr;
     }
+
+    bool Board::containsPoint(Point point) {
+        return false;
+    }
 }

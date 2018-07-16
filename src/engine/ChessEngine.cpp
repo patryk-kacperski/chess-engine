@@ -7,23 +7,48 @@
 namespace pkchessengine {
 
     MoveResult ChessEngine::attemptToMove(Point origin, Point destination) {
-        return MoveResult::kValid;
+        if (isGameOver()) {
+            return MoveResult::kGameIsOver;
+        } else if (shouldPromote().shouldPromote) {
+            return MoveResult::kPromotionShouldBePerformed;
+        } else if (!(board->containsPoint(origin) && board->containsPoint(destination))) {
+            return MoveResult::kOutOfBoard;
+        }
+        auto piece = board->getPiece(origin);
+        if (piece == nullptr) {
+            return MoveResult::kNoPieceAtOrigin;
+        } else if (piece->getSide() != currentSide) {
+            return MoveResult::kWrongSidePieceAtOrigin;
+        }
+        Move move {origin, destination, board, currentSide};
+        MoveResult result = piece->validate(move);
+        return result;
     }
 
     MoveResult ChessEngine::attemptToMove(int xOrigin, int xDestination, int yOrigin, int yDestination) {
-        return MoveResult::kValid;
+        Point originPoint = pointFactory.create(xOrigin, yOrigin);
+        Point destinationPoint = pointFactory.create(xDestination, yDestination);
+        return attemptToMove(originPoint, destinationPoint);
     }
 
     MoveResult ChessEngine::attemptToMove(std::pair<int, int> origin, std::pair<int, int> destination) {
-        return MoveResult::kValid;
+        Point originPoint = pointFactory.create(origin);
+        Point destinationPoint = pointFactory.create(destination);
+        return attemptToMove(originPoint, destinationPoint);
     }
 
     MoveResult ChessEngine::attemptToMove(const std::string& origin, const std::string& destination) {
-        return MoveResult::kValid;
+        Point originPoint = pointFactory.create(origin);
+        Point destinationPoint = pointFactory.create(destination);
+        return attemptToMove(originPoint, destinationPoint);
     }
 
     MoveResult ChessEngine::attemptToMove(const std::string& move) {
-        return MoveResult::kValid;
+        auto points = pointFactory.createMove(move);
+        if (points.first == Point::invalid() || points.second == Point::invalid()) {
+            return MoveResult::kInvalidAlgebraicNotation;
+        }
+        return attemptToMove(points.first, points.second);
     }
 
     std::vector<Point> ChessEngine::getPossibleMovesFor(Point point) {
@@ -72,6 +97,10 @@ namespace pkchessengine {
 
     PromotionInfo ChessEngine::shouldPromote() {
         return PromotionInfo {false};
+    }
+
+    bool ChessEngine::isGameOver() {
+        return false;
     }
 
 }

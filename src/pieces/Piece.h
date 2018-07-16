@@ -33,6 +33,8 @@ namespace pkchessengine {
          */
         MoveResult validate(Move move);
 
+        Side getSide();
+
     private:
         /// information about piece's position and side
         PieceInfo info;

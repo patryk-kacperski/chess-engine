@@ -20,6 +20,14 @@ namespace pkchessengine {
     class Board {
     public:
         /**
+         * Factory method for creating Board object from initial state. It is the only way to create
+         * Board object, since default constructor is private
+         * @throw std::invalid_argument if initialState is not of shape 8x8
+         * @param initialState std::vector containing initial piece positions
+         * @return pointer to newly created Board object
+         */
+        static std::shared_ptr<Board> create(const std::vector<std::vector<PieceInfo>>& initialState);
+        /**
          * Perform move from origin to destination
          * @warning this function assumes, that passed points make valid move and doesn't check it
          * @param origin origin point
@@ -47,13 +55,11 @@ namespace pkchessengine {
          */
         std::shared_ptr<Piece> getPiece(Point point);
         /**
-         * Factory method for creating Board object from initial state. It is the only way to create
-         * Board object, since default constructor is private
-         * @throw std::invalid_argument if initialState is not of shape 8x8
-         * @param initialState std::vector containing initial piece positions
-         * @return pointer to newly created Board object
+         * Checks whether given point is in board
+         * @param point Point to check
+         * @return true if both coordinates of point are in range [0; 7]. false otherwise
          */
-        static std::shared_ptr<Board> create(const std::vector<std::vector<PieceInfo>>& initialState);
+        bool containsPoint(Point point);
     private:
         /// vector of pieces
         std::vector<std::vector<std::shared_ptr<Piece>>> board;

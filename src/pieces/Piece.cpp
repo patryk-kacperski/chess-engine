@@ -12,4 +12,8 @@ namespace pkchessengine {
 
     Piece::Piece(Side side, PieceType type)
     { }
+
+    Side Piece::getSide() {
+        return info.side;
+    }
 }
