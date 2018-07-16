@@ -59,7 +59,7 @@ namespace pkchessengine {
         if (board->containsPoint(point)) {
             auto piece = board->getPiece(point);
             if (piece != nullptr && piece->getSide() == currentSide) {
-                fillPossibleMoves(piece, moves);
+                fillPossibleMoves(piece, point, moves);
             }
         }
         return moves;
@@ -143,8 +143,17 @@ namespace pkchessengine {
         return (currentStatus == GameStatus::kCheckMate || currentStatus == GameStatus::kStaleMate);
     }
 
-    void ChessEngine::fillPossibleMoves(std::shared_ptr<Piece> piece, const std::vector<Point> &moves) {
-
+    void ChessEngine::fillPossibleMoves(std::shared_ptr<Piece> piece, Point origin, std::vector<Point> &moves) {
+        for (int rank = 0; rank < 8; ++rank) {
+            for (int file = 0; file < 8; ++file) {
+                Point destination = pointFactory.create(file, rank);
+                Move move {origin, destination, board, currentSide};
+                MoveResult result = piece->validate(move);
+                if (result == MoveResult::kValid) {
+                    moves.push_back(destination);
+                }
+            }
+        }
     }
 
     void ChessEngine::performMove() {
