@@ -60,6 +60,13 @@ namespace pkchessengine {
          * @return true if both coordinates of point are in range [0; 7]. false otherwise
          */
         bool containsPoint(Point point);
+        /**
+         * Checks whether given point is on the last rank of board for given side
+         * @param point Point to check
+         * @param side current Side
+         * @return true if point is on the last rank for given side. false otherwise
+         */
+        bool isOnLastRank(Point point, Side side);
     private:
         /// vector of pieces
         std::vector<std::vector<std::shared_ptr<Piece>>> board;

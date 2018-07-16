@@ -31,4 +31,8 @@ namespace pkchessengine {
     bool Board::containsPoint(Point point) {
         return false;
     }
+
+    bool Board::isOnLastRank(Point point, Side side) {
+        return false;
+    }
 }

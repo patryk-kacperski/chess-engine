@@ -22,6 +22,9 @@ namespace pkchessengine {
         }
         Move move {origin, destination, board, currentSide};
         MoveResult result = piece->validate(move);
+        if (result == MoveResult::kValid) {
+            performMove();
+        }
         return result;
     }
 
@@ -52,35 +55,64 @@ namespace pkchessengine {
     }
 
     std::vector<Point> ChessEngine::getPossibleMovesFor(Point point) {
-        return std::vector<Point>();
+        std::vector<Point> moves;
+        if (board->containsPoint(point)) {
+            auto piece = board->getPiece(point);
+            if (piece != nullptr && piece->getSide() == currentSide) {
+                fillPossibleMoves(piece, moves);
+            }
+        }
+        return moves;
     }
 
     std::vector<Point> ChessEngine::getPossibleMovesFor(int x, int y) {
-        return std::vector<Point>();
+        Point point = pointFactory.create(x, y);
+        return getPossibleMovesFor(point);
     }
 
     std::vector<Point> ChessEngine::getPossibleMovesFor(std::pair<int, int> point) {
-        return std::vector<Point>();
+        Point piecePoint = pointFactory.create(point);
+        return getPossibleMovesFor(piecePoint);
     }
 
     std::vector<Point> ChessEngine::getPossibleMovesFor(const std::string& point) {
-        return std::vector<Point>();
+        Point piecePoint = pointFactory.create(point);
+        return getPossibleMovesFor(piecePoint);
     }
 
     PromotionResult ChessEngine::attemptToPromote(Point point, PieceType type) {
+        if (!board->containsPoint(point)) {
+            return PromotionResult::kOutOfBoard;
+        } else if (!board->isOnLastRank(point, currentSide)) {
+            return PromotionResult::kWrongPosition;
+        }
+        auto piece = board->getPiece(point);
+        if (piece == nullptr) {
+            return PromotionResult::kNoPiece;
+        } else if (piece->getType() != PieceType::kPawn) {
+            return PromotionResult::kPieceIsNotPawn;
+        } else if (piece->getSide() != currentSide) {
+            return PromotionResult::kWrongSide;
+        } else if (type == PieceType::kPawn || type == PieceType::kNone || type == PieceType::kKing) {
+            return PromotionResult::kInvalidType;
+        }
+        performPromotion();
         return PromotionResult::kValid;
     }
 
     PromotionResult ChessEngine::attemptToPromote(int x, int y, PieceType type) {
-        return PromotionResult::kValid;
+        Point point = pointFactory.create(x, y);
+        return attemptToPromote(point, type);
     }
 
     PromotionResult ChessEngine::attemptToPromote(std::pair<int, int> point, PieceType type) {
-        return PromotionResult::kValid;
+        Point piecePoint = pointFactory.create(point);
+        return attemptToPromote(piecePoint, type);
     }
 
     PromotionResult ChessEngine::attemptToPromote(const std::string& point, PieceType type) {
-        return PromotionResult::kValid;
+        Point piecePoint = pointFactory.create(point);
+        return attemptToPromote(piecePoint, type);
     }
 
     GameStatus ChessEngine::getStatus() {
@@ -96,11 +128,31 @@ namespace pkchessengine {
     }
 
     PromotionInfo ChessEngine::shouldPromote() {
-        return PromotionInfo {false};
+        int rank {currentSide == Side::kWhite ? 0 : 7};
+        for (int file = 0; file < 8; ++file) {
+            Point point = pointFactory.create(file, rank);
+            auto piece = board->getPiece(point);
+            if (piece != nullptr && piece->getType() == PieceType::kPawn && piece->getSide() == currentSide) {
+                return {true, point};
+            }
+        }
+        return {false};
     }
 
     bool ChessEngine::isGameOver() {
-        return false;
+        return (currentStatus == GameStatus::kCheckMate || currentStatus == GameStatus::kStaleMate);
+    }
+
+    void ChessEngine::fillPossibleMoves(std::shared_ptr<Piece> piece, const std::vector<Point> &moves) {
+
+    }
+
+    void ChessEngine::performMove() {
+
+    }
+
+    void ChessEngine::performPromotion() {
+
     }
 
 }

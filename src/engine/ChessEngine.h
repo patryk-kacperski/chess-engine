@@ -180,6 +180,12 @@ namespace pkchessengine {
         std::shared_ptr<Board> board;
         /// Checks if the game ended
         bool isGameOver();
+        /// Fills vector of possible moves for a piece
+        void fillPossibleMoves(std::shared_ptr<Piece> piece, const std::vector<Point> &moves);
+        /// Function called after move validation
+        void performMove();
+        /// Function called after promotion validation
+        void performPromotion();
     };
 
 }
