@@ -5,5 +5,5 @@ Work in progress, approximate finish time: 08.2018
 
 ### Technical documentation
 To view technical documentation:
-- unzip file documentation.exe
+- unzip file documentation.zip
 - open html/index.html in web browser
