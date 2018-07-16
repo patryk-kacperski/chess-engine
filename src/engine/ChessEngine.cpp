@@ -23,7 +23,7 @@ namespace pkchessengine {
         Move move {origin, destination, board, currentSide};
         MoveResult result = piece->validate(move);
         if (result == MoveResult::kValid) {
-            performMove();
+            performMove(origin, destination);
         }
         return result;
     }
@@ -96,7 +96,7 @@ namespace pkchessengine {
         } else if (type == PieceType::kPawn || type == PieceType::kNone || type == PieceType::kKing) {
             return PromotionResult::kInvalidType;
         }
-        performPromotion();
+        piece->promote(type);
         return PromotionResult::kValid;
     }
 
@@ -156,12 +156,26 @@ namespace pkchessengine {
         }
     }
 
-    void ChessEngine::performMove() {
-
+    void ChessEngine::performMove(Point origin, Point destination) {
+        board->move(origin, destination);
+        changeSide();
+        updateStatus();
     }
 
-    void ChessEngine::performPromotion() {
+    void ChessEngine::changeSide() {
+        currentSide = (currentSide == Side::kWhite ? Side::kBlack : Side::kWhite);
+    }
 
+    void ChessEngine::updateStatus() {
+        if (board->isStaleMate()) {
+            currentStatus = GameStatus::kStaleMate;
+        } else if (board->isCheckMate(currentSide)) {
+            currentStatus = GameStatus::kCheckMate;
+        } else if (board->isCheck(currentSide)) {
+            currentStatus = GameStatus::kCheck;
+        } else {
+            currentStatus = GameStatus::kInProgress;
+        }
     }
 
 }

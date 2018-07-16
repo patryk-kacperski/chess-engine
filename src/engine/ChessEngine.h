@@ -178,14 +178,17 @@ namespace pkchessengine {
         GameStatus currentStatus;
         /// Board object holding all pieces
         std::shared_ptr<Board> board;
+
         /// Checks if the game ended
         bool isGameOver();
         /// Fills vector of possible moves for a piece
         void fillPossibleMoves(std::shared_ptr<Piece> piece, Point origin, std::vector<Point> &moves);
         /// Function called after move validation
-        void performMove();
-        /// Function called after promotion validation
-        void performPromotion();
+        void performMove(Point origin, Point destination);
+        /// Changes current side
+        void changeSide();
+        /// Checks and updates game status
+        void updateStatus();
     };
 
 }

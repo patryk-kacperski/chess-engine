@@ -35,4 +35,16 @@ namespace pkchessengine {
     bool Board::isOnLastRank(Point point, Side side) {
         return false;
     }
+
+    bool Board::isCheck(Side side) {
+        return false;
+    }
+
+    bool Board::isCheckMate(Side side) {
+        return false;
+    }
+
+    bool Board::isStaleMate() {
+        return false;
+    }
 }

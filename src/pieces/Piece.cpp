@@ -20,4 +20,8 @@ namespace pkchessengine {
     PieceType Piece::getType() {
         return info.type;
     }
+
+    void Piece::promote(PieceType type) {
+
+    }
 }

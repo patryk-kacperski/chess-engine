@@ -67,6 +67,23 @@ namespace pkchessengine {
          * @return true if point is on the last rank for given side. false otherwise
          */
         bool isOnLastRank(Point point, Side side);
+        /**
+         * Checks whether given side is under check
+         * @param side Current side
+         * @return true if side is under check. false otherwise
+         */
+        bool isCheck(Side side);
+        /**
+         * Checks whether given side is under checkmate
+         * @param side Current side
+         * @return true if side is under checkmate. false otherwise
+         */
+        bool isCheckMate(Side side);
+        /**
+         * Checks if stalemate has occurred
+         * @return true if stalemate has occurred. false otherwise
+         */
+        bool isStaleMate();
     private:
         /// vector of pieces
         std::vector<std::vector<std::shared_ptr<Piece>>> board;

@@ -32,6 +32,12 @@ namespace pkchessengine {
          * @return MoveResult object
          */
         MoveResult validate(Move move);
+        /**
+         * Changes Piece's type and validator according to given type
+         * @warning this function doesn't check if type is correct or if promoted piece is in fact a pawn
+         * @param type Type that pawn should be promoted to
+         */
+        void promote(PieceType type);
 
         Side getSide();
         PieceType getType();
