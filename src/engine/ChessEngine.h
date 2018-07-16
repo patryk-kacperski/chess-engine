@@ -109,7 +109,6 @@ namespace pkchessengine {
          */
         std::vector<Point> getPossibleMovesFor(const std::string& point);
 
-        // TODO: move cases description to enum
         /**
          * Tries to promote a pawn. If correct (last line) field containing
          * pawn of current side is passed then promotion is valid and performed.
@@ -179,6 +178,17 @@ namespace pkchessengine {
         GameStatus currentStatus;
         /// Board object holding all pieces
         std::shared_ptr<Board> board;
+
+        /// Checks if the game ended
+        bool isGameOver();
+        /// Fills vector of possible moves for a piece
+        void fillPossibleMoves(std::shared_ptr<Piece> piece, Point origin, std::vector<Point> &moves);
+        /// Function called after move validation
+        void performMove(Point origin, Point destination);
+        /// Changes current side
+        void changeSide();
+        /// Checks and updates game status
+        void updateStatus();
     };
 
 }

@@ -27,4 +27,24 @@ namespace pkchessengine {
     std::shared_ptr<Board> Board::create(const std::vector<std::vector<PieceInfo>>& initialState) {
         return nullptr;
     }
+
+    bool Board::containsPoint(Point point) {
+        return false;
+    }
+
+    bool Board::isOnLastRank(Point point, Side side) {
+        return false;
+    }
+
+    bool Board::isCheck(Side side) {
+        return false;
+    }
+
+    bool Board::isCheckMate(Side side) {
+        return false;
+    }
+
+    bool Board::isStaleMate() {
+        return false;
+    }
 }

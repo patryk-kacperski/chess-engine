@@ -13,6 +13,17 @@ namespace pkchessengine {
 
         Point(int x, int y) : x(x), y(y)
         {}
+
+        /**
+         * Invalid point
+         */
+        static Point invalid() {
+            return {-1, -1};
+        }
+
+        bool operator==(const Point &other) {
+            return x == other.x && y == other.y;
+        }
     };
 
 }

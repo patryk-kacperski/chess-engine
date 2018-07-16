@@ -24,7 +24,6 @@ namespace pkchessengine {
         /// promotion is invalid, because type received is either pawn, king or none
         kInvalidType
     };
-
 }
 
 
